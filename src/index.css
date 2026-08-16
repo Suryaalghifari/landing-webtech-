@@ -1,0 +1,235 @@
+@import "tailwindcss";
+@import "./fonts.css";
+@plugin "@tailwindcss/typography";
+
+/* Section gelap ditandai class `.dark`. Semua utilitas `dark:` di dalamnya
+   ikut aktif, jadi komponen cukup mendeklarasikan varian gelapnya sekali.
+   Ini bukan dark mode situs — ini irama terang/gelap antar section. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------
+   Design tokens — palet monokrom hangat (stone), tanpa warna aksen.
+   Lihat BLUEPRINT.md §1.
+   ------------------------------------------------------------------ */
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #0c0a09; /* stone-950 — teks utama, kontras 18.9:1  */
+  --color-subtle: #57534e; /* stone-600 — teks sekunder, kontras 7.5:1 */
+  --color-hairline: #e7e5e4; /* stone-200 — border                      */
+  --color-surface: #f5f5f4; /* stone-100 — kartu                       */
+  --color-canvas: #fafaf9; /* stone-50  — section selang-seling       */
+
+  --radius-lg: 0.5rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white font-sans text-base text-ink antialiased;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    @apply bg-ink text-white;
+  }
+
+  /* Focus ring terlihat untuk navigasi keyboard — checklist a11y */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ink;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Animasi masuk — CSS murni, dijalankan scroll timeline.
+
+   Prinsip yang menentukan bentuk blok ini: KEADAAN BAWAAN ADALAH TERLIHAT.
+   Animasi dipasang di dalam `@supports`, jadi browser yang tidak mendukung
+   `animation-timeline` (Firefox, per Agustus 2026) menampilkan isinya apa
+   adanya — bukan halaman kosong. Halaman ini di-prerender justru supaya
+   terbaca tanpa JavaScript; animasi tidak boleh membatalkan itu.
+
+   Hanya `opacity` dan `transform` — keduanya di GPU, tidak memicu reflow.
+   Geser 14px saja: gerak besar terasa murahan dan membuat mata lelah.
+   ------------------------------------------------------------------ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes reveal-in {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .reveal,
+    .stagger > * {
+      animation: reveal-in 0.55s cubic-bezier(0.21, 0.47, 0.32, 0.98) both;
+      animation-timeline: view();
+      /* Mulai saat elemen 10% masuk layar, selesai saat 35% terlihat.
+         `add` di akhir menahannya tetap terlihat setelah lewat — padanan
+         `once: true`, tanpa perlu satu baris JavaScript pun. */
+      animation-range: entry 10% cover 35%;
+    }
+
+    /* Jeda berurutan untuk anak grid — padanan `staggerChildren`.
+       Dibatasi enam: lewat itu, penonton sudah tidak membacanya sebagai
+       urutan, cuma sebagai halaman yang lambat. */
+    .stagger > *:nth-child(2) {
+      animation-range: entry 14% cover 39%;
+    }
+    .stagger > *:nth-child(3) {
+      animation-range: entry 18% cover 43%;
+    }
+    .stagger > *:nth-child(4) {
+      animation-range: entry 22% cover 47%;
+    }
+    .stagger > *:nth-child(5) {
+      animation-range: entry 26% cover 51%;
+    }
+    .stagger > *:nth-child(n + 6) {
+      animation-range: entry 30% cover 55%;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Gedung yang membangun dirinya sendiri — `BuildingScene` di hero.
+
+   Prinsipnya sama dengan blok di atas dan alasannya sama pentingnya:
+   KEADAAN BAWAAN ADALAH BANGUNAN YANG SUDAH BERDIRI. Seluruh isi blok ini
+   hidup di dalam `prefers-reduced-motion: no-preference`, jadi:
+
+     - di HTML hasil prerender, sebelum CSS jalan → gambar utuh
+     - pada pengguna yang meminta gerak dikurangi → gambar utuh, seketika
+     - browser tanpa dukungan apa pun                → gambar utuh
+
+   Tidak ada satu pun jalur di mana halaman ini menampilkan kotak kosong.
+
+   JALAN SEKALI, LALU DIAM. Tidak ada `infinite`. Animasi tak berujung
+   dipakai untuk indikator memuat, bukan untuk elemen dekoratif — dan
+   pembaca situs ini sedang membandingkan penawaran, bukan menonton.
+
+   `--d` disuntik per elemen lewat atribut style di BuildingScene.tsx.
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes build-draw {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes build-rise {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  @keyframes build-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* transform-box: fill-box — tanpa ini, transform-origin di dalam SVG
+     dihitung dari sudut viewBox, bukan dari kotak elemennya sendiri, dan
+     gedungnya akan menyusut ke arah yang salah. */
+  .build-draw,
+  .build-rise {
+    transform-box: fill-box;
+  }
+
+  .build-draw {
+    transform-origin: left center;
+    animation: build-draw 0.6s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+
+  .build-rise {
+    transform-origin: bottom center;
+    /* Ease-out yang sama dengan `reveal-in`: gerak masuk melambat di akhir,
+       supaya gedungnya terasa mendarat, bukan berhenti mendadak. */
+    animation: build-rise 0.75s cubic-bezier(0.21, 0.47, 0.32, 0.98) both;
+    animation-delay: var(--d, 0s);
+  }
+
+  .build-fade {
+    animation: build-fade 0.5s ease-out both;
+    animation-delay: var(--d, 0s);
+  }
+}
+
+/* Riak tombol — `be-ui-button`, dipindah dari motion ke CSS. */
+@keyframes ripple {
+  from {
+    transform: scale(0);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.ripple {
+  animation: ripple 0.6s ease-out forwards;
+}
+
+/* Menu mobile — buka/tutup lewat grid-template-rows, bukan AnimatePresence.
+   `1fr` tidak bisa dianimasikan dari `0fr` di semua browser lama, tapi di
+   yang mendukung ini menghasilkan transisi tinggi yang halus tanpa perlu
+   mengukur elemen lewat JavaScript. */
+.collapsible {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.26s cubic-bezier(0.21, 0.47, 0.32, 0.98);
+}
+
+.collapsible[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.collapsible > * {
+  overflow: hidden;
+}
+
+/* Hormati prefers-reduced-motion di seluruh situs */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

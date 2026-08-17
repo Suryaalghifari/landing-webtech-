@@ -1,11 +1,11 @@
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Section";
 import { GridPattern } from "@/components/ui/GridPattern";
 import { BuildingScene } from "@/components/ui/BuildingScene";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { site, trustLine } from "@/data/site";
-import { operationalProof, priceRange } from "@/data/content";
+import { heroPhoto, operationalProof, priceRange } from "@/data/content";
 import { waLink } from "@/lib/utils";
 
 /**

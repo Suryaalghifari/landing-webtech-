@@ -3,9 +3,12 @@
 Situs verifikasi satu halaman. **Bukan** alat pencari klien, bukan etalase
 portofolio.
 
-**Status: tampilan selesai, isi masih sementara.** Halaman terlihat utuh dan
-sudah disetujui, tapi nomor legalitas, nama tim, daftar layanan, jawaban FAQ,
-dan harga yang tampil sekarang adalah isian sementara.
+> **Status: tampilan selesai, isi masih sementara.** Halaman terlihat utuh dan
+> sudah disetujui, tapi nomor legalitas, nama tim, daftar layanan, jawaban FAQ,
+> dan harga yang tampil sekarang adalah isian sementara.
+>
+> ⚠️ **Situs belum tayang.** Deploy Zeabur (G-8) belum aktif — `production`
+> branch sudah dibuat (2026-08-17), tapi belum ada yang dideploy ke sana.
 
 > **→ [`ISI-YANG-HARUS-DIGANTI.md`](ISI-YANG-HARUS-DIGANTI.md)** — daftar
 > lengkap apa yang harus diganti, di berkas mana, dan kenapa. Baca itu dulu.

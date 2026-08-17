@@ -25,7 +25,7 @@ Daftar semua dokumen proyek dan aturan mainnya. Pemicu kapan sebuah dokumen diba
 | [decisions/](decisions/README.md) | keputusan skala-fitur | kerja besar / mengubah arah |
 | [01-conventions.md](01-conventions.md) | konvensi koding Lapis 0+1 + Definition of Done | menulis kode apa pun |
 | [02-kontrak-konten.md](02-kontrak-konten.md) | kontrak konten & bentuk data | mengubah data / bentuk field |
-| [03-git-workflow.md](03-git-workflow.md) | aturan git (branch, commit, rilis) | operasi git |
+| [03-git-workflow.md](03-git-workflow.md) | aturan git (branch, commit, rilis, alur PR) | operasi git |
 | [prd-website-citra-teknologi-nusantara-v1.md](prd-website-citra-teknologi-nusantara-v1.md) | PRD V1 — sumber kebenaran produk | keputusan produk |
 | [rencana-citra-teknologi-nusantara.md](rencana-citra-teknologi-nusantara.md) | rencana strategis bisnis | keputusan bisnis |
 | [PENCOCOKAN-V1.md](PENCOCOKAN-V1.md) | pencocokan desain → PRD §6 | keputusan desain V1 |

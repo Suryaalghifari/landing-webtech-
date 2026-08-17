@@ -48,8 +48,6 @@ _(kosong — isi saat mulai mengerjakan: sudah beres · berikutnya · setengah j
 - **G-6 tidak bisa dideteksi otomatis** oleh `npm run cek` — logo/favicon perlu pemeriksaan manual.
 - **Formatter belum dipasang** — saat Prettier dipasang, perintahnya masuk DoD
   (docs/01-conventions.md), bukan ditulis di dua tempat.
-- **Branch `production` belum ada** — aturan "main tidak menerima commit langsung" (03-git-workflow)
-  aktif begitu production dibuat.
 
 ## Log
 

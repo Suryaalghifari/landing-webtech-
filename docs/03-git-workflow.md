@@ -9,10 +9,21 @@ membabi buta bisa menyeret berkas rahasia atau artefak build ke riwayat.
 ## Skala proyek ini
 
 - **Lapisan branch:** `feat/* → main → production`
-  - `main` = integrasi; `production` = yang tayang di Zeabur
+  - `main` = integrasi — **tidak pernah menerima commit langsung** (via PR)
+  - `production` = yang tayang di Zeabur — dibuat 2026-08-17 dari `main`
   - Rilis = merge seluruh `main` ke `production` sekaligus (bukan per-PR / cherry-pick)
 - **Merge commit** saat merge PR (bukan squash) — menyisakan titik rollback per PR. Squash boleh
   hanya karena rilis tidak pernah per-PR; kalau itu berubah, kembali ke merge commit.
+
+## Alur PR (dipakai sejak 2026-08-17, branch production aktif)
+
+1. `git checkout main && git pull origin main`
+2. `git checkout -b <tipe>/<deskripsi-singkat>` — satu branch satu tujuan
+3. Kerjakan + commit (stage selektif)
+4. `git push -u origin HEAD`
+5. `gh pr create --title "..." --body "..."` — PR ke `main`
+6. `gh pr merge --merge` — merge commit (bukan squash); **PR dijalankan oleh agent
+   hanya atas permintaan user** (aturan 1). PR boleh dibuka agent dengan permintaan yang sama.
 
 ## Aturan
 

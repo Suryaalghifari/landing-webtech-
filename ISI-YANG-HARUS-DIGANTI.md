@@ -272,6 +272,8 @@ Supaya jelas batasnya, ini sudah selesai dan tidak menunggu apa pun dari Anda:
   tidak menuju ke mana pun adalah hal pertama yang membuat pengunjung curiga
   situsnya belum jadi.
 - **Portofolio, testimoni, dan angka statistik** — ditunda ke V2 atas perintah
-  PRD §6 (C1, C2, C3). Sembilan komponennya tidak dihapus, hanya dipindahkan
-  ke folder `parked-v2/` di akar proyek. PRD §11 menghidupkannya kembali begitu
-  terkumpul tiga nama klien yang boleh dipublikasikan.
+  PRD §6 (C1, C2, C3). Sembilan komponennya sempat dipindahkan ke folder
+  `parked-v2/` di akar proyek, lalu **dihapus** (keputusan 002): kodenya
+  mengimpor `motion` yang sudah dicabut dan datanya karangan. PRD §11
+  menghidupkan V2 begitu terkumpul tiga nama klien yang boleh dipublikasikan —
+  ditulis ulang dari PRD, dengan data nyata.

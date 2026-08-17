@@ -55,15 +55,14 @@ Tujuh bagian, urutan tetap:
 
 ## Susunan folder
 
-```
+```text
 src/
   data/       site.ts (identitas, legalitas, tim) · content.ts (isi halaman)
   components/ blocks · layout · ui
   pages/      Home.tsx
 scripts/      prerender.mjs · cek-konten.mjs
 public/       fonts · hero.jpg · og.png · favicon.svg
-docs/         PRD, rencana, dan dokumen desain
-parked-v2/    sembilan blok yang ditunda ke V2 — di luar jalur build
+docs/         PRD, rencana, desain, arsip, dan dokumen kickoff
 ```
 
 Isi halaman hanya ada di dua berkas: `src/data/site.ts` dan
@@ -78,9 +77,9 @@ mengganti isi tidak menyentuh satu pun berkas komponen.
 | `docs/prd-website-citra-teknologi-nusantara-v1.md` | PRD V1 — sumber kebenaran |
 | `docs/rencana-citra-teknologi-nusantara.md` | Rencana strategis bisnis |
 | `docs/PENCOCOKAN-V1.md` | Pencocokan desain → PRD (§6) |
-| `docs/BLUEPRINT.md` | Desain & arsitektur versi UMKM — sebagian tidak berlaku |
-| `docs/COMPONENTS.md` | Pemetaan modul → komponen 21st.dev |
-| `docs/PAGE-SPECS.md` | Detail section versi UMKM — tidak berlaku untuk V1 |
+| `docs/arsip/BLUEPRINT.md` | Desain & arsitektur versi UMKM — arsip, tidak berlaku V1 |
+| `docs/arsip/COMPONENTS.md` | Pemetaan modul → komponen 21st.dev — arsip |
+| `docs/arsip/PAGE-SPECS.md` | Detail section versi UMKM — arsip, tidak berlaku untuk V1 |
 
 ## Requirement non-fungsional — status terukur
 
@@ -129,20 +128,13 @@ website tidak menjawabnya.
 
 ## Diparkir untuk V2
 
-Sembilan blok dilepas dari halaman, **tidak dihapus**: `TrustStrip`,
-`ProblemSection`, `BeforeAfter`, `Showcase`, `MetricCards`, `PricingTable`,
-`ComparisonTable`, `TestimonialGrid`, `DirectoryGrid` — beserta komponen UI
-dan datanya, semuanya di folder `parked-v2/` di luar `src/`.
-
-Dasarnya PRD §6 — C1 (portofolio), C2 (testimoni), C3 (angka statistik).
-Karena berada di luar `src/`, folder itu tidak ikut di-typecheck maupun
-di-bundle: memarkirkan tidak membebani halaman sedikit pun.
-
-> ⚠️ Seluruh nama klien, testimoni, dan angka di `parked-v2/data/` **karangan**.
-> PRD §11 menghidupkan V2 setelah terkumpul 3 nama klien yang boleh
-> dipublikasikan — dan yang dipasang nanti harus data nyata, bukan isi berkas
-> itu. Menghidupkannya kembali perlu memindahkan berkasnya ke `src/` dan
-> memasang lagi `motion` sebagai dependensi.
+Sembilan blok V2 (`TrustStrip`, `ProblemSection`, `BeforeAfter`, `Showcase`,
+`MetricCards`, `PricingTable`, `ComparisonTable`, `TestimonialGrid`,
+`DirectoryGrid`) pernah dilepas dari halaman dan disimpan di folder
+`parked-v2/`. Folder itu **dihapus** (keputusan 002): komponennya mengimpor
+`motion` yang sudah dicabut, dua impornya putus, dan datanya (nama klien,
+testimoni, harga) **karangan**. V2 ditulis ulang dari PRD §6 dan §11 begitu
+terkumpul tiga nama klien yang boleh dipublikasikan — dengan data nyata.
 
 ## Urutan kerja menurut dokumen Anda sendiri
 

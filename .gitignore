@@ -1,0 +1,18 @@
+# dependensi
+node_modules/
+
+# artefak build
+dist/
+
+# lingkungan — jangan pernah commit
+.env
+.env.*
+!.env.example
+
+# sistem
+.DS_Store
+
+# log & sampah
+*.log
+*.tmp
+Thumbs.db
